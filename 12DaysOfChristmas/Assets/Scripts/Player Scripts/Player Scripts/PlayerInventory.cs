@@ -6,58 +6,74 @@ using System.Collections.Generic;
 
 public class PlayerInventory : MonoBehaviour {
 
-    public Canvas inventoryCanvas;
+    //Player Inventory Class
+    //Handles Weapons, Ammo, Ammo Amounts, and Updating the Ammo Meter
 
-    public Text snowballAmount;
-    public Text presentAmount;
-    public Text fuelAmount;
+    //Player Controller pointer
+    private PlayerController playerController;
 
+    //Ammo Meter
+    public GameObject ammoContainer;
+    public Text ammoCount;
+
+    //Weapons
     public Weapon[] playerWeapons = new Weapon[3];
 
- 
+    //Ammo Counts
     public int snowballCount;
-
-
     public int presentCount;
-
-
     public int fuelCount;
 
     // Use this for initialization
     void Start() {
-        inventoryCanvas.enabled = false;
+        //Gets the PlayerController from the GameObject
+        this.playerController = this.gameObject.GetComponent<PlayerController>();
 
-        snowballCount = 100;
-        presentCount = 15;
-        fuelCount = 50;
+        //Activates the Ammo Meter
+        ammoContainer.SetActive(true);
 
-        SetInventoryText();
+        //Sets Starting Ammo
+        snowballCount = 400;
+        presentCount = 40;
+        fuelCount = 500;
+
+        //Updates Ammo Meter
+        SetAmmoText();
 	}
 
-    public void SetInventoryText()
+    // Called Every Frame
+    void Update()
     {
-        snowballAmount.text = snowballCount.ToString();
-        presentAmount.text = presentCount.ToString();
-        fuelAmount.text = fuelCount.ToString();
+        //Sets Ammo Meter
+        SetAmmoText();
     }
 
-    public void UpdateSnowballs(int snowballCount)
+    //Sets Ammo Meter to have the Ammo of the currently active Weapon
+    public void SetAmmoText()
     {
-        snowballAmount.text = snowballCount.ToString();
+        switch (playerController.currentWeaponSlot)
+        {
+            case PlayerController.WeaponSlot.SLOT_ONE:
+                {
+                    ammoCount.text = snowballCount.ToString();
+                    break;
+                }
+            case PlayerController.WeaponSlot.SLOT_TWO:
+                {
+                    ammoCount.text = presentCount.ToString();
+                    break;
+                }
+            case PlayerController.WeaponSlot.SLOT_THREE:
+                {
+                    ammoCount.text = fuelCount.ToString();
+                    break;
+                }
+        }
     }
 
-    public void UpdatePresents(int presentCount)
-    {
-        presentAmount.text = presentCount.ToString();
-    }
-
-    public void UpdateFuel(int fuelCount)
-    {
-        fuelAmount.text = fuelCount.ToString();
-    }
-
+    //Toggles Ammo Meter Visibility
     public void ToggleInventory(bool toggle)
     {
-        inventoryCanvas.enabled = toggle;
+        ammoContainer.SetActive(toggle);
     }
 }

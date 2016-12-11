@@ -3,14 +3,20 @@ using System.Collections;
 
 public class PresentLauncher : Weapon {
 
+    //Present Launcher Class, Manages Presents thrown and how they spawn
+
+    //Projectile Speed
     public float projectileSpeed;
 
+    //Present Prefab and Direction/Location of thier Spawning
     public Rigidbody presentPrefab;
     public Transform projectileSpawn;
 
+    //Shot Cooldown
     private float elapsedTime;
     private float timeBetweenShots = 0.5f;
 
+    //Method Override of Hide
     public override void Hide(bool toggle)
     {
         if (toggle)
@@ -23,6 +29,7 @@ public class PresentLauncher : Weapon {
         }
     }
 
+    //Method Override for Fire, Spawns Present, applies Force and decrements ammo count
     public override void Fire(PlayerInventory playerInv, float deltaTime)
     {
         elapsedTime += deltaTime;
@@ -37,6 +44,12 @@ public class PresentLauncher : Weapon {
             }
             elapsedTime = 0.0f;
         }
+    }
+
+    //Method Override for CeaseFire
+    public override void CeaseFire()
+    {
+        //Does Nothing
     }
 
 }

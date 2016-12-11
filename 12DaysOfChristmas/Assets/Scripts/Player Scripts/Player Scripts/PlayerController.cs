@@ -5,22 +5,30 @@ using System.Collections;
 
 public class PlayerController : MonoBehaviour {
 
-    private enum WeaponSlot
+    //The Player Controller Class
+    //Manages Every Input the Player can Use, as well as Menus, Weapon Switching, and Movement
+
+    //Enumeration to make Weapon switching easier
+    public enum WeaponSlot
     {
         SLOT_ONE,
         SLOT_TWO,
         SLOT_THREE
     }
 
-    private bool toggleInventory;
-    private bool toggleMenu;
+    //Toggles to turn menus on and off
+    public bool toggleInventory;
+    public bool toggleMenu;
 
-    private WeaponSlot currentWeaponSlot;
+    //Current Weapon
+    public WeaponSlot currentWeaponSlot;
 
+    //Holds pointers to the Body of the player, the Inventory, and the Pause Menu to access them
     public GameObject body;
     public PlayerInventory playerInventory;
     public PauseMenu playerPauseMenu;
 
+    //Movement Speed and Movement Variables
     public float movementSpeed;
     private float translation;
     private float strafe;
@@ -58,24 +66,24 @@ public class PlayerController : MonoBehaviour {
         {
             currentWeaponSlot = WeaponSlot.SLOT_ONE;
             CmdToggleWeapon();
-            Debug.Log("Switch to Slot 1");
+            //Debug.Log("Switch to Slot 1");
         }
         if (Input.GetButtonDown("Slot2"))
         {
             currentWeaponSlot = WeaponSlot.SLOT_TWO;
             CmdToggleWeapon();
-            Debug.Log("Switch to Slot 2");
+            //Debug.Log("Switch to Slot 2");
         }
         if (Input.GetButtonDown("Slot3"))
         {
             currentWeaponSlot = WeaponSlot.SLOT_THREE;
             CmdToggleWeapon();
-            Debug.Log("Switch to Slot 3");
+            //Debug.Log("Switch to Slot 3");
         }
         if (Input.GetButtonDown("Slot4"))
         {
-            PresentFactory pf = FindObjectOfType<PresentFactory>();
-            pf.CmdMakePresent(this.gameObject);
+            //PresentFactory pf = FindObjectOfType<PresentFactory>();
+            //pf.CmdMakePresent(this.gameObject);
         }
 
         if (Input.GetButton("Fire1"))
@@ -88,6 +96,7 @@ public class PlayerController : MonoBehaviour {
         }
 
         //Get Inventory Input
+        /*
         if (Input.GetButtonDown("Inventory") && !toggleMenu)
         {
             if (!toggleInventory)
@@ -104,27 +113,28 @@ public class PlayerController : MonoBehaviour {
             }
             playerInventory.ToggleInventory(toggleInventory);
         }
+        */
 
         //Return Cursor Input
-        if (Input.GetButtonDown("Cancel") && !toggleInventory)
+        if (Input.GetButtonDown("Cancel"))
         {
             if (!toggleMenu)
             {
                 Cursor.lockState = CursorLockMode.None;
-                Debug.Log("Opening Menu");
+                //Debug.Log("Opening Menu");
                 toggleMenu = true;
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
-                Debug.Log("Closing Menu");
+                //Debug.Log("Closing Menu");
                 toggleMenu = false;
             }
             playerPauseMenu.ToggleVisibility(toggleMenu);
         }
 	}
 
- 
+    //Switches Between Weapons
     void CmdToggleWeapon()
     {
         switch (currentWeaponSlot)
@@ -153,6 +163,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    //Fires Active Weapon
     void CmdFireWeapon(float deltaTime)
     {
         switch (currentWeaponSlot)
@@ -175,6 +186,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    //Calls the CeaseFire of the Active Weapon
     void CeaseFire()
     {
         switch (currentWeaponSlot)

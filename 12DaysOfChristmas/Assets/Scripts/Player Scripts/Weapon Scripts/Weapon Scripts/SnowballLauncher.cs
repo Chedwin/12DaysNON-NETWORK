@@ -3,17 +3,24 @@ using System.Collections;
 
 public class SnowballLauncher : Weapon {
 
+    //Snowball Launcher, the most useful weapon in the game
+
+    //Projectile Speed
     public float projectileSpeed;
 
+    //Projectile Information
     public Rigidbody projectilePrefab;
     public Transform projectileSpawn;
 
+    //Subobjects
     public GameObject cylinder;
     public GameObject lights;
 
+    //Firerate
     private float elaspedTime;
-    private float timeBetweenShots = 0.25f;
+    private float timeBetweenShots = 0.15f;
 
+    //Method override of Hide
     public override void Hide(bool toggle)
     {
         if (toggle)
@@ -28,6 +35,7 @@ public class SnowballLauncher : Weapon {
         }
     }
 
+    //Method override of Fire
     public override void Fire(PlayerInventory playerInv, float deltaTime)
     {
         elaspedTime += deltaTime;
@@ -45,5 +53,10 @@ public class SnowballLauncher : Weapon {
 
     }
 
+    //Method override CeaseFire
+    public override void CeaseFire()
+    {
+        //Do Nothing
+    }
 
 }
