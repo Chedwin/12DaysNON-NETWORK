@@ -6,15 +6,22 @@ using System.Collections;
 [RequireComponent(typeof(SphereCollider))]
 public class PlayerHealth : MonoBehaviour {
 
+    //Player Health Class, holds and manages Player Health
+
+    //Max Health
     public const int maxHealth = 100;
 
-    public Slider healthBar;
 
+    //Current Health
     public int health = 0;
+
+    //Slider 
+    public Slider healthBar;
 
 	// Use this for initialization
 	void Start () {
         health = maxHealth;
+        OnChangeHealth(health);
 	}
 
     // Snowmen enemies entering the sphere trigger collider
@@ -47,6 +54,7 @@ public class PlayerHealth : MonoBehaviour {
         OnChangeHealth(health);
     }
 
+    //Called when Current Health changes value
     public void OnChangeHealth(int health)
     {
         healthBar.value = health;

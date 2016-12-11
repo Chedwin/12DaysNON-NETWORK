@@ -4,45 +4,47 @@ using System.Collections;
 
 public class ShaderMenu : MonoBehaviour {
 
-    public Canvas shaderMenu;
+    //Shader Menu Handler
 
+    //Shader Menu Object Group
+    public GameObject shaderMenu;
+
+    //Player Body - Target to be effected by Shader Change
     public GameObject targetBody;
 
+    //Material Shaders
     public Material glowShader;
     public Material cellShader;
 
+    //Shader Menu Buttons
 	public Button shaderGlowButton;
 	public Button shaderCellButton;
 
 	// Use this for initialization
 	void Start () {
-        //shaderGlowButton.onClick.AddListener(ApplyGlowShader);
-        //shaderCellButton.onClick.AddListener(ApplyCellShader);
+        shaderGlowButton.onClick.AddListener(ApplyGlowShader);
+        shaderCellButton.onClick.AddListener(ApplyCellShader);
 
-        shaderMenu.enabled = false;
+        shaderMenu.SetActive(false);
     }
 
+    //Triggered when Applying Glow Shader
     public void ApplyGlowShader()
     {
         targetBody.GetComponent<Renderer>().material = glowShader;
         ToggleVisibility(false);
     }
 
+    //Triggered when Applying Cell Shader
     public void ApplyCellShader()
     {
         targetBody.GetComponent<Renderer>().material = cellShader;
         ToggleVisibility(false);
     }
 
+    //Toggle Shader Menu Visibility
     public void ToggleVisibility(bool toggle)
     {
-        if (toggle)
-        {
-            shaderMenu.enabled = true;
-        }
-        else
-        {
-            shaderMenu.enabled = false;
-        }
+        shaderMenu.SetActive(toggle);
     }
 }

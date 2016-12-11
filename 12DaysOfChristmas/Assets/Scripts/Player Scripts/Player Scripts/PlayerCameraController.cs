@@ -3,12 +3,18 @@ using System.Collections;
 
 public class PlayerCameraController : MonoBehaviour {
 
+    //Player Camera Controller
+    //Allows the Player to move their camera and look around
+
+    //Gets Mouse Position and Smoothing Vector
     Vector2 mouseLook;
     Vector2 smoothingVector;
 
+    //Movement variables
     public float sensitivity;
     public float smoothing;
 
+    //Host PlayerCharacter
     GameObject playerCharacter;
 
 	// Use this for initialization
